@@ -40,13 +40,13 @@ const Dashboard: React.FC = () => {
   ): Promise<void> {
     try {
       const [lastFood] = foods.slice(-1);
+      const id = lastFood ? lastFood.id + 1 : 1;
 
-      const parsedFood = { ...food, id: lastFood.id + 1, available: true };
+      const parsedFood = { ...food, id, available: true };
 
       await api.post('/foods', parsedFood);
 
-      foods.push(parsedFood);
-      setFoods(foods);
+      setFoods([...foods, parsedFood]);
     } catch (err) {
       console.log(err);
     }
